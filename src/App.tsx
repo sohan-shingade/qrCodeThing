@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import * as React from "react";
+import Cam from "./Cam";
+import "./App.css";
 
-function App() {
+const App: React.FC = () => {
+  const [imgs, setImgs] = React.useState<Array<string>>([]);
+  const addImg = (imgUri: string) => {
+    setImgs((prevImgs: Array<string>) => [imgUri, ...prevImgs]);
+  };
+
+  const displayImgs = imgs.map((imgUri) => (
+    <li>
+      <img src={imgUri} alt="Cool img" />
+    </li>
+  ));
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Cam returnImg={addImg} />
+      <ul>{displayImgs}</ul>
     </div>
   );
-}
+};
 
 export default App;
