@@ -4,20 +4,16 @@ import "./App.css";
 
 const App: React.FC = () => {
   const [imgs, setImgs] = React.useState<Array<string>>([]);
-  const addImg = (imgUri: string) => {
-    setImgs((prevImgs: Array<string>) => [imgUri, ...prevImgs]);
+  const openURL = (link: string | null) => {
+    if (typeof link === "string") {
+      window.open(link, "_blank");
+    }
   };
-
-  const displayImgs = imgs.map((imgUri) => (
-    <li>
-      <img src={imgUri} alt="Cool img" />
-    </li>
-  ));
 
   return (
     <div>
-      <Cam returnImg={addImg} />
-      <ul>{displayImgs}</ul>
+      <Cam openURL={(link: string | null) => openURL(link)} />
+      {/* <ul>{displayImgs}</ul> */}
     </div>
   );
 };

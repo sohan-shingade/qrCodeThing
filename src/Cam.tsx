@@ -1,20 +1,27 @@
 import * as React from "react";
-import Camera from "react-html5-camera-photo";
-import "react-html5-camera-photo/build/css/index.css";
+import QrReader from "react-qr-reader";
+
+/**
+ *
+ *
+ */
 interface Props {
-  returnImg: (imgUri: string) => void;
+  openURL: (url: string | null) => void;
 }
 const Cam: React.FC<Props> = (props) => {
-  function handleTakePhoto(dataUri: string) {
-    props.returnImg(dataUri);
-    console.log("takePhoto");
+  function handleTakePhoto(link: string | null) {
+    props.openURL(link);
+    //console.log(dataUri);
   }
 
   return (
-    <Camera
-      onTakePhoto={(dataUri: string) => {
-        handleTakePhoto(dataUri);
+    <QrReader
+      delay={300}
+      onError={(err: string) => {
+        console.error(err);
       }}
+      onScan={(link: string | null) => handleTakePhoto(link)}
+      style={{ width: "50%", alignSelf: "center" }}
     />
   );
 };
